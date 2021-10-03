@@ -126,14 +126,14 @@ detach()
 
 The results from the first linear regression portray a positive correlation between the independent and dependent variables (income(independent), ages ranging from 25-55 with a focus on female participants, race restrictions (African America, American Indian, Hispanic & other) and highest level of education attained(dependent))
 
-#For the following linear regressions, I am interested in exploring the relationship between variables similar to the first regression analysis however, with restrictions placed on highest level of education attained, gender, ethnicity and increasing the age limit from 55 to 65. 
+#For the following linear regressions, I am interested in exploring the relationship between variables similar to the first regression analysis however, with restrictions placed on highest level of education attained, gender and increasing the age limit from 55 to 65. 
 #The shift from 55 to 65 is to include the people who are still working until the full benefit retirement age of 65. 
 #I also increased the number of average hours worked per week from 35 to 40. 
 #The goal of this regression is to understand the reasoning behind any significant differences that may occur, when compared to the first analysis. 
 
 dependent variable: income
 independent variable: Age, female 
-# I am omitting race and education in this particular regression in order to observe the impact of each variable in the subsequent regressions.   
+# I am omitting education in this particular regression in order to observe the impact of each variable in the subsequent regressions.   
 
 My null hypothesis for the second regression analysis is that there will be no significant difference between the second regression analysis and the first. 
 The alternative hypothesis is that there will be a significant difference between the first and the second analysis.
@@ -273,8 +273,8 @@ to_be_predicted2 <- data.frame(AGE = 25:65, female = 1, educ_hs = 1 , educ_somec
 to_be_predicted3$yhat <- predict(model_temp3, newdata = to_be_predicted3)
 lines(yhat ~ AGE, data = to_be_predicted3)
 
-The next regression will follow the results of income, age, and education. 
-#This is to observe the difference from all female participant data. 
+#The next regression will follow the results of income, age, and education, omitting the female variable present from the previous regression in order to observe any differences. 
+
 
 model_temp4 <- lm(INCTOT ~ AGE + educ_hs + educ_somecoll + educ_college + educ_advdeg)
 > summary(model_temp4)
@@ -354,6 +354,16 @@ plot(INCTOT ~ (AGE), pch = 16, col = rgb(0.5, 0.5, 0.5, alpha = 0.2), ylim = c(0
 to_be_predicted4 <- data.frame(AGE = 25:65, educ_hs = 1 , educ_somecoll = 1, educ_college = 1, educ_advdeg = 1)
 to_be_predicted4$yhat <- predict(model_temp4, newdata = to_be_predicted4)
 lines(yhat ~ AGE, data = to_be_predicted4)
+
+#Interestingly, the average wages from model_temp3 surpasses the results observed from model_temp4. I had predicted that the increase in participant size for model_temp4 would impact the averages by increasing the results however, the results were significantly less. 
+
+Analyzing the results from the regressions conducted in this lab, there is evidence to demonstrate that age, education and gender impact the wage of an individual. 
+Interestingly, while the third regression depicted a positive correlation between age, eduction and gender the fourth regression, albeit positive, depicted a positive correlation, hoever, not as potent. 
+This study focused solely on the differences and impact of age, education and gender on the income an individual earns but it should be noted that there are other variables and circumstances that can heavily impact wage, that have not been mentioned.
+
+Additional information that would be useful in determining the importance or the impact of a degree on wages is the level of English fluency an individual holds. 
+I would think that the lack of English fluency would impede opportunities for people even if they have the education required for a certain job. 
+Follwing this, I would be interested in comparing data between people of similar education, age & gender, the only difference being their fluency of the language. 
 
 
 
