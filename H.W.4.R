@@ -2,7 +2,7 @@ LAB 4!
   
   #For this lab, we get to conduct regression models to explain wages. We want to understand how important is a college degree, in relation to income.
   
-  load("~/Desktop/School/Fall 2021/Statistics and Introduction to Econometrics/RStudio Stuff/Ecob2000_lecture1/acs2017_ny_data..RData")
+load("~/Desktop/School/Fall 2021/Statistics and Introduction to Econometrics/RStudio Stuff/Ecob2000_lecture1/acs2017_ny_data..RData")
 attach(acs2017_ny)
 use_varb <- (AGE >= 25) & (AGE <= 55) & (LABFORCE == 2) & (WKSWORK2 > 4) & (UHRSWORK >= 35)
 dat_use <- subset(acs2017_ny,use_varb) # 
@@ -16,9 +16,9 @@ attach(dat_use)
 > summary(model_temp1)
 
 Call:
-  lm(formula = INCWAGE ~ AGE + female + AfAm + Asian + Amindian + 
-       race_oth + Hispanic + educ_hs + educ_somecoll + educ_college + 
-       educ_advdeg)
+lm(formula = INCWAGE ~ AGE + female + AfAm + Asian + Amindian + 
+  race_oth + Hispanic + educ_hs + educ_somecoll + educ_college + 
+  educ_advdeg)
 
 Residuals:
   Min      1Q  Median      3Q     Max 
@@ -31,15 +31,15 @@ Coefficients:
   female        -24939.46     720.43 -34.617  < 2e-16 ***
   AfAm          -11934.26    1130.37 -10.558  < 2e-16 ***
   Asian            566.53    1369.83   0.414 0.679188    
-Amindian       -8858.57    6077.71  -1.458 0.144971    
-race_oth       -7526.49    1272.49  -5.915 3.35e-09 ***
+Amindian         -8858.57    6077.71  -1.458 0.144971    
+race_oth         -7526.49    1272.49  -5.915 3.35e-09 ***
   Hispanic       -4224.82    1183.47  -3.570 0.000358 ***
   educ_hs        10592.37    1814.71   5.837 5.35e-09 ***
   educ_somecoll  22461.39    1857.67  12.091  < 2e-16 ***
   educ_college   57155.71    1830.96  31.216  < 2e-16 ***
   educ_advdeg    82766.43    1878.64  44.057  < 2e-16 ***
   ---
-  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 76760 on 46959 degrees of freedom
 Multiple R-squared:   0.15,	Adjusted R-squared:  0.1498 
@@ -55,48 +55,48 @@ require(stargazer)
 stargazer(model_temp1, type = "text")
 # play with stargazer instead of summary, it can look nicer!
 ==================================================
-  Dependent variable:      
-  ------------------------------
-  INCWAGE            
+                             Dependent variable:      
+                    ------------------------------
+                                  INCWAGE            
 --------------------------------------------------
   AGE                          -189.515***          
-  (8.038)            
+                                  (8.038)            
 
 female                      -17,005.830***        
-  (306.035)           
+                                 (306.035)           
 
 AfAm                        -5,979.715***         
-  (470.978)           
+                                 (470.978)           
 
 Asian                          -246.677           
-(622.420)           
+                                (622.420)           
 
 Amindian                     -4,434.481*          
-  (2,531.131)          
+                               (2,531.131)          
 
 race_oth                    -3,473.873***         
-  (572.419)           
+                                 (572.419)           
 
 Hispanic                     -1,001.109*          
-  (521.614)           
+                                 (521.614)           
 
 educ_hs                     11,803.740***         
-  (517.546)           
+                                 (517.546)           
 
 educ_somecoll               19,141.370***         
-  (557.270)           
+                                 (557.270)           
 
 educ_college                45,536.170***         
-  (570.431)           
+                                 (570.431)           
 
 educ_advdeg                 68,896.920***         
-  (608.312)           
+                                 (608.312)           
 
 Constant                    26,745.370***         
-  (630.833)           
+                                  (630.833)           
 
 --------------------------------------------------
-  Observations                   163,158            
+Observations                   163,158            
 R2                              0.134             
 Adjusted R2                     0.134             
 Residual Std. Error    61,589.210 (df = 163146)   
@@ -156,10 +156,10 @@ Residuals:
 Coefficients:
   Estimate Std. Error t value Pr(>|t|)    
 (Intercept)  53581.37    1619.28   33.09   <2e-16 ***
-  AGE            699.78      34.38   20.36   <2e-16 ***
-  female      -18285.20     788.63  -23.19   <2e-16 ***
+AGE            699.78      34.38   20.36   <2e-16 ***
+female      -18285.20     788.63  -23.19   <2e-16 ***
   ---
-  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 89040 on 52402 degrees of freedom
 Multiple R-squared:  0.01823,	Adjusted R-squared:  0.0182 
@@ -168,27 +168,27 @@ F-statistic: 486.6 on 2 and 52402 DF,  p-value: < 2.2e-16
 > suppressMessages(require(stargazer))
 > stargazer(model_temp2, type = "text")
 ===============================================
-  Dependent variable:    
-  ---------------------------
-  INCWAGE          
+                          Dependent variable:    
+                    ---------------------------
+                                INCWAGE          
 -----------------------------------------------
   AGE                         699.777***         
-  (34.378)          
+                               (34.378)          
 
 female                    -18,285.200***       
-  (788.629)         
+                                (788.629)         
 
 Constant                   53,581.370***       
-  (1,619.285)        
+                              (1,619.285)        
 
 -----------------------------------------------
-  Observations                  52,405           
+Observations                  52,405           
 R2                             0.018           
 Adjusted R2                    0.018           
 Residual Std. Error   89,036.620 (df = 52402)  
 F Statistic         486.645*** (df = 2; 52402) 
 ===============================================
-  Note:               *p<0.1; **p<0.05; ***p<0.01
+Note:               *p<0.1; **p<0.05; ***p<0.01
 
 NNobs <- length(INCWAGE)
 > set.seed(12345) # just so you can replicate and get same "random" choices
@@ -197,9 +197,9 @@ NNobs <- length(INCWAGE)
 plot(INCWAGE ~ jitter(AGE, factor = 2), pch = 16, col = rgb(0.5, 0.5, 0.5, alpha = 0.2), ylim = c(0,150000), data = dat_graph1)
 > # discus what you see in this plot
   
-  #We can observe a positive linear relationship between income and age for females from this dataset. 
+#We can observe a positive linear relationship between income and age for females from this dataset. 
   
-  For the third regression analysis, I want to include the education variables and compare against the results observed from the second regression. 
+For the third regression analysis, I want to include the education variables and compare against the results observed from the second regression. 
 model_temp3 <- lm(INCTOT ~ AGE + female + educ_hs + educ_somecoll + educ_college + educ_advdeg)
 > summary(model_temp3)
 
@@ -230,39 +230,39 @@ F-statistic:  1619 on 6 and 52398 DF,  p-value: < 2.2e-16
 suppressMessages(require(stargazer))
 stargazer(model_temp3, type = "text")
 ================================================
-  Dependent variable:     
-  ----------------------------
-  INCTOT           
+                           Dependent variable:     
+                    ----------------------------
+                                   INCTOT           
 ------------------------------------------------
   AGE                         1,321.622***        
-  (35.422)          
+                                (35.422)          
 
 female                     -30,249.620***       
-  (807.324)          
+                                (807.324)          
 
 educ_hs                    13,067.190***        
-  (1,936.764)         
+                               (1,936.764)         
 
 educ_somecoll              27,187.270***        
-  (1,986.769)         
+                               (1,986.769)         
 
 educ_college               68,818.290***        
-  (1,950.551)         
+                               (1,950.551)         
 
 educ_advdeg                104,550.700***       
-  (1,993.059)         
-
+                               (1,993.059)         
+    
 Constant                   -11,545.090***       
-  (2,430.403)         
+                               (2,430.403)         
 
 ------------------------------------------------
-  Observations                   52,405           
+Observations                   52,405           
 R2                             0.156            
 Adjusted R2                    0.156            
 Residual Std. Error   90,492.270 (df = 52398)   
 F Statistic         1,618.622*** (df = 6; 52398)
 ================================================
-  Note:                *p<0.1; **p<0.05; ***p<0.01
+Note:                *p<0.1; **p<0.05; ***p<0.01
 
 NNobs <- length(INCTOT)
 set.seed(12345)
@@ -301,30 +301,30 @@ suppressMessages(require(stargazer))
 stargazer(model_temp4, type = "text")
 
 ================================================
-  Dependent variable:     
-  ----------------------------
-  INCTOT           
+                            Dependent variable:     
+                     ----------------------------
+                                    INCTOT           
 ------------------------------------------------
   AGE                         1,333.078***        
-  (35.891)          
+                                (35.891)          
 
 educ_hs                    12,083.350***        
-  (1,962.340)         
+                               (1,962.340)         
 
 educ_somecoll              23,680.780***        
-  (2,010.956)         
+                               (2,010.956)         
 
 educ_college               64,991.650***        
-  (1,973.780)         
+                                (1,973.780)         
 
 educ_advdeg                98,878.190***        
-  (2,013.729)         
+                                (2,013.729)         
 
 Constant                   -21,544.130***       
-  (2,447.833)         
+                              (2,447.833)         
 
 ------------------------------------------------
-  Observations                   52,405           
+Observations                   52,405           
 R2                             0.134            
 Adjusted R2                    0.134            
 Residual Std. Error   91,695.680 (df = 52399)   
@@ -345,6 +345,15 @@ t test of coefficients:
   educ_advdeg    98878.186   1700.935  58.132 < 2.2e-16 ***
   ---
   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+NNobs <- length(INCTOT)
+set.seed(12345)
+graph_obs2 <- (runif(NNobs) < 0.1) 
+dat_graph2 <-subset(dat_use1,graph_obs2)  
+plot(INCTOT ~ (AGE), pch = 16, col = rgb(0.5, 0.5, 0.5, alpha = 0.2), ylim = c(0,200000), data = dat_graph2)
+to_be_predicted4 <- data.frame(AGE = 25:65, educ_hs = 1 , educ_somecoll = 1, educ_college = 1, educ_advdeg = 1)
+to_be_predicted4$yhat <- predict(model_temp4, newdata = to_be_predicted4)
+lines(yhat ~ AGE, data = to_be_predicted4)
 
 
 
