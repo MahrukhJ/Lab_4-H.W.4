@@ -332,7 +332,7 @@ F Statistic         1,618.235*** (df = 5; 52399)
 ================================================
   Note:                *p<0.1; **p<0.05; ***p<0.01
 
-#We can write a commandfor a t-test of coefficients!
+#We can write a command for a t-test of coefficients!
 > coeftest(model_temp4,vcovHC)
 t test of coefficients:
   
@@ -345,5 +345,6 @@ t test of coefficients:
   educ_advdeg    98878.186   1700.935  58.132 < 2.2e-16 ***
   ---
   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
 
 
