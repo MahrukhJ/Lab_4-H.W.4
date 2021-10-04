@@ -25,8 +25,8 @@ Residuals:
 -148088  -33205  -10708   13053  625543 
 
 Coefficients:
-  Estimate Std. Error t value Pr(>|t|)    
-(Intercept)    -7096.25    2446.71  -2.900 0.003730 ** 
+                   Estimate  Std. Error t value Pr(>|t|)    
+(Intercept)       -7096.25    2446.71  -2.900 0.003730 ** 
   AGE             1316.69      39.66  33.199  < 2e-16 ***
   female        -24939.46     720.43 -34.617  < 2e-16 ***
   AfAm          -11934.26    1130.37 -10.558  < 2e-16 ***
@@ -154,7 +154,7 @@ Residuals:
 -99067 -42173 -19786  12229 585209 
 
 Coefficients:
-  Estimate Std. Error t value Pr(>|t|)    
+             Estimate    Std. Error t value Pr(>|t|)    
 (Intercept)  53581.37    1619.28   33.09   <2e-16 ***
 AGE            699.78      34.38   20.36   <2e-16 ***
 female      -18285.20     788.63  -23.19   <2e-16 ***
@@ -212,8 +212,8 @@ Residuals:
 -176489  -39010  -13717   12850 1270505 
 
 Coefficients:
-  Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   -11545.09    2430.40  -4.750 2.04e-06 ***
+                Estimate     Std. Error t value  Pr(>|t|)    
+(Intercept)     -11545.09    2430.40  -4.750 2.04e-06 ***
   AGE             1321.62      35.42  37.311  < 2e-16 ***
   female        -30249.63     807.32 -37.469  < 2e-16 ***
   educ_hs        13067.20    1936.76   6.747 1.53e-11 ***
@@ -283,8 +283,8 @@ Residuals:
 -161551  -39191  -14793   10896 1283896 
 
 Coefficients:
-  Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   -21544.13    2447.83  -8.801  < 2e-16 ***
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)     -21544.13    2447.83  -8.801  < 2e-16 ***
   AGE             1333.08      35.89  37.142  < 2e-16 ***
   educ_hs        12083.35    1962.34   6.158 7.44e-10 ***
   educ_somecoll  23680.78    2010.96  11.776  < 2e-16 ***
@@ -332,20 +332,6 @@ F Statistic         1,618.235*** (df = 5; 52399)
 ================================================
   Note:                *p<0.1; **p<0.05; ***p<0.01
 
-#We can write a command for a t-test of coefficients!
-> coeftest(model_temp4,vcovHC)
-t test of coefficients:
-  
-  Estimate Std. Error t value  Pr(>|t|)    
-(Intercept)   -21544.130   1853.158 -11.626 < 2.2e-16 ***
-  AGE             1333.078     35.239  37.830 < 2.2e-16 ***
-  educ_hs        12083.350   1065.382  11.342 < 2.2e-16 ***
-  educ_somecoll  23680.779   1117.503  21.191 < 2.2e-16 ***
-  educ_college   64991.649   1338.958  48.539 < 2.2e-16 ***
-  educ_advdeg    98878.186   1700.935  58.132 < 2.2e-16 ***
-  ---
-  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
 NNobs <- length(INCTOT)
 set.seed(12345)
 graph_obs2 <- (runif(NNobs) < 0.1) 
@@ -364,5 +350,13 @@ Additional information that would be useful in determining the importance or the
 I would think that the lack of English fluency would impede opportunities for people even if they have the education required for a certain job. 
 Follwing this, I would be interested in comparing data between people of similar education, age & gender, the only difference being their fluency of the language. 
 
+The p-value for the all four linear regressions read 'p-value:< 2.2e-16' which is under the p<0.01 significance level. 
+The p-value is a measure of how much evidence we have against the null hypothesis so the smaller the p-value, the more evidence against the null hypothesis. 
+In this case, we can reject the null hypothesis and accept the significant differences in the mean values of the variables because a p-value less than 0.01 indicates substantial evidence against the null.
+
+We can also analyze the t-values in the first regression and compare them to the values generated from the second, third and fourth regressions. 
+Comparing the  coefficients for intercept, age & female, the t-value (for the second regression) increased for intercept,decreased for age and decreased for female. 
+Comparing the third regression to the second regression, the t-value decreased for intercept, increased for age and decreased for female. 
+Finally, comparing the fourth regression to the third regression, the t-value decreased for intercept and only slightly decreased for age.
 
 
