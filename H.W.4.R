@@ -358,9 +358,8 @@ lines(yhat ~ AGE, data = to_be_predicted4)
 #Interestingly, the average wages from model_temp3 surpasses the results observed from model_temp4. I had predicted that the increase in participant size for model_temp4 would impact the averages by increasing the results however, the results were significantly less. 
 
 Analyzing the results from the regressions conducted in this lab, there is evidence to demonstrate that age, education and gender impact the wage of an individual. 
-Interestingly, while the third regression depicted a positive correlation between age, eduction and gender the fourth regression, albeit positive, depicted a positive correlation, hoever, not as potent. 
+Interestingly, while the third regression depicted a positive correlation between age, eduction and gender the fourth regression, albeit positive, depicted a positive correlation, however, not as potent. 
 This study focused solely on the differences and impact of age, education and gender on the income an individual earns but it should be noted that there are other variables and circumstances that can heavily impact wage, that have not been mentioned.
-
 Additional information that would be useful in determining the importance or the impact of a degree on wages is the level of English fluency an individual holds. 
 I would think that the lack of English fluency would impede opportunities for people even if they have the education required for a certain job. 
 Follwing this, I would be interested in comparing data between people of similar education, age & gender, the only difference being their fluency of the language. 
