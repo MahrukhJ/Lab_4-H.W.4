@@ -198,7 +198,74 @@ plot(INCWAGE ~ jitter(AGE, factor = 2), pch = 16, col = rgb(0.5, 0.5, 0.5, alpha
 > # discus what you see in this plot
   
 #We can observe a positive linear relationship between income and age for females from this dataset. 
+
+#Before I begin the third regression analysis, I want to try lm(log(INCWAGE) to compare the mean of the predicted values of the first version to the mean of the predicted values in the second (log) version. 
+model_temp2a <- lm((log1p(INCWAGE)) ~ AGE + female)
+> summary(model_temp2a)
+Call:
+  lm(formula = (log1p(INCWAGE)) ~ AGE + female)
+
+Residuals:
+  Min     1Q Median     3Q    Max 
+-9.113 -4.584  1.805  4.378 10.597 
+
+Coefficients:
+                Estimate  Std. Error  t value P r(>|t|)    
+(Intercept)   10.3978786  0.0367138  283.21   <2e-16 ***
+  AGE         -0.0803009  0.0006654 -120.68   <2e-16 ***
+  female      -0.6748504  0.0258823  -26.07   <2e-16 ***
+  ---
+  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4.896 on 143763 degrees of freedom
+(29316 observations deleted due to missingness)
+Multiple R-squared:  0.09783,	Adjusted R-squared:  0.09781 
+F-statistic:  7794 on 2 and 143763 DF,  p-value: < 2.2e-16
+
+suppressMessages(require(stargazer))
+> stargazer(model_temp2a, type = "text")
+
+=================================================
+                              Dependent variable:     
+                    -----------------------------
+                             (log1p(INCWAGE))       
+-------------------------------------------------
+  AGE                           -0.080***          
+                                    (0.001)           
+
+female                        -0.675***          
+                                     (0.026)           
+
+Constant                      10.398***          
+                                     (0.037)           
+
+-------------------------------------------------
+  Observations                   143,766           
+R2                              0.098            
+Adjusted R2                     0.098            
+Residual Std. Error      4.896 (df = 143763)     
+F Statistic         7,794.474*** (df = 2; 143763)
+=================================================
+  Note:                 *p<0.1; **p<0.05; ***p<0.01
+
+The log function allows us to view the percentage change of the dependent variable in response to changes in the independent variables. We can compare th log coefficients to the original coefficients through the following:
+ 
+  'Coefficients:
+                Estimate    Std. Error t value Pr(>|t|)    
+(Intercept)    49537.279    490.035  101.09   <2e-16 ***
+  AGE           -158.634      8.882  -17.86   <2e-16 ***
+  female      -15517.583    345.462  -44.92   <2e-16 ***
   
+  Coefficients:
+               Estimate   Std. Error t value Pr(>|t|)    
+(Intercept)   10.3978786  0.0367138  283.21   <2e-16 ***
+  AGE         -0.0803009  0.0006654 -120.68   <2e-16 ***
+  female      -0.6748504  0.0258823  -26.07   <2e-16 ***'
+
+Overall, by observing the log model, we can see that there is defintiely a difference, especially in the female estimate and in the intercept t-value. 
+
+
+
 For the third regression analysis, I want to include the education variables and compare against the results observed from the second regression. 
 model_temp3 <- lm(INCTOT ~ AGE + female + educ_hs + educ_somecoll + educ_college + educ_advdeg)
 > summary(model_temp3)
@@ -273,6 +340,93 @@ to_be_predicted2 <- data.frame(AGE = 25:65, female = 1, educ_hs = 1 , educ_somec
 to_be_predicted3$yhat <- predict(model_temp3, newdata = to_be_predicted3)
 lines(yhat ~ AGE, data = to_be_predicted3)
 
+#Next, we can compare the data from this regression to a log function. 
+> model_temp3a <- lm((log1p(INCTOT)) ~ AGE + female + educ_hs + educ_somecoll + educ_college + educ_advdeg)
+> summary(model_temp3a)
+
+Call:
+  lm(formula = (log1p(INCTOT)) ~ AGE + female + educ_hs + educ_somecoll + 
+       educ_college + educ_advdeg)
+Residuals:
+  Min       1Q   Median       3Q      Max 
+-13.3322  -0.5090   0.9287   1.9262   8.6517 
+
+Coefficients:
+                  Estimate  Std. Error t value  Pr(>|t|)    
+(Intercept)      4.1317069  0.0305301  135.33   <2e-16 ***
+  AGE            0.0511500  0.0004357  117.41   <2e-16 ***
+  female        -0.8468228  0.0169368  -50.00   <2e-16 ***
+  educ_hs        2.3176407  0.0275841   84.02   <2e-16 ***
+  educ_somecoll  2.9271315  0.0296710   98.65   <2e-16 ***
+  educ_college   3.8737704  0.0302874  127.90   <2e-16 ***
+  educ_advdeg    4.3412661  0.0324505  133.78   <2e-16 ***
+  ---
+  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.221 on 145585 degrees of freedom
+(27490 observations deleted due to missingness)
+Multiple R-squared:  0.2221,	Adjusted R-squared:  0.2221 
+F-statistic:  6929 on 6 and 145585 DF,  p-value: < 2.2e-16
+
+> suppressMessages(require(stargazer))
+> stargazer(model_temp3a, type = "text")
+
+=================================================
+                             Dependent variable:     
+                    -----------------------------
+                              (log1p(INCTOT))       
+-------------------------------------------------
+  AGE                           0.051***           
+                                (0.0004)           
+
+female                        -0.847***          
+                                  (0.017)           
+
+educ_hs                       2.318***           
+                                   (0.028)           
+
+educ_somecoll                 2.927***           
+                                  (0.030)           
+
+educ_college                  3.874***           
+                                  (0.030)           
+
+educ_advdeg                   4.341***           
+                                  (0.032)           
+
+Constant                      4.132***           
+                                 (0.031)           
+
+-------------------------------------------------
+  Observations                   145,592           
+R2                              0.222            
+Adjusted R2                     0.222            
+Residual Std. Error      3.221 (df = 145585)     
+F Statistic         6,929.022*** (df = 6; 145585)
+=================================================
+  Note:                 *p<0.1; **p<0.05; ***p<0.01
+
+-----------------Comparing the coefficients-------------------
+  Coefficients:
+                 Estimate   Std.Error t value  Pr(>|t|)    
+(Intercept)     -11545.09    2430.40  -4.750 2.04e-06 ***
+  AGE             1321.62      35.42  37.311  < 2e-16 ***
+  female        -30249.63     807.32 -37.469  < 2e-16 ***
+  educ_hs        13067.20    1936.76   6.747 1.53e-11 ***
+  educ_somecoll  27187.27    1986.77  13.684  < 2e-16 ***
+  educ_college   68818.29    1950.55  35.281  < 2e-16 ***
+  educ_advdeg   104550.73    1993.06  52.457  < 2e-16 ***
+  
+  Coefficients:
+                  Estimate  Std. Error  t value  Pr(>|t|)    
+(Intercept)      4.1317069  0.0305301  135.33   <2e-16 ***
+  AGE            0.0511500  0.0004357  117.41   <2e-16 ***
+  female        -0.8468228  0.0169368  -50.00   <2e-16 ***
+  educ_hs        2.3176407  0.0275841   84.02   <2e-16 ***
+  educ_somecoll  2.9271315  0.0296710   98.65   <2e-16 ***
+  educ_college   3.8737704  0.0302874  127.90   <2e-16 ***
+  educ_advdeg    4.3412661  0.0324505  133.78   <2e-16 ***
+  
 #The next regression will follow the results of income, age, and education, omitting the female variable present from the previous regression in order to observe any differences. 
 
 
@@ -359,4 +513,123 @@ Additional information that would be useful in determining the importance or the
 I would think that the lack of English fluency would impede opportunities for people even if they have the education required for a certain job. 
 Following this, I would be interested in comparing data between people of similar education, age & gender, the only difference being their fluency of the language. 
 
+#Just for fun: I am actually interested in comparing wages between people who are below the poverty line with an advanced degree and those above the poverty line with an advanced degree. 
 
+model_temp5 <- lm(INCWAGE ~ AGE + educ_advdeg + below_povertyline)
+summary(model_temp5)
+
+Call:
+  lm(formula = INCWAGE ~ AGE + educ_advdeg + below_povertyline)
+
+Residuals:
+  Min     1Q Median     3Q    Max 
+-84697 -27405 -12810  10276 619433 
+
+Coefficients:
+  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        42941.682    454.885   94.40   <2e-16 ***
+  AGE                 -256.578      8.543  -30.03   <2e-16 ***
+  educ_advdeg        46887.095    475.637   98.58   <2e-16 ***
+  below_povertyline -31079.949    529.226  -58.73   <2e-16 ***
+  ---
+  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 62750 on 143762 degrees of freedom
+(29316 observations deleted due to missingness)
+Multiple R-squared:  0.09334,	Adjusted R-squared:  0.09332 
+F-statistic:  4933 on 3 and 143762 DF,  p-value: < 2.2e-16
+
+> suppressMessages(require(stargazer))
+> stargazer(model_temp5, type = "text")
+
+=================================================
+  Dependent variable:     
+  -----------------------------
+  INCWAGE           
+-------------------------------------------------
+  AGE                          -256.578***         
+  (8.543)           
+
+educ_advdeg                 46,887.100***        
+  (475.637)          
+
+below_povertyline          -31,079.950***        
+  (529.226)          
+
+Constant                    42,941.680***        
+  (454.885)          
+
+-------------------------------------------------
+  Observations                   143,766           
+R2                              0.093            
+Adjusted R2                     0.093            
+Residual Std. Error   62,749.820 (df = 143762)   
+F Statistic         4,933.326*** (df = 3; 143762)
+=================================================
+  Note:                 *p<0.1; **p<0.05; ***p<0.01
+
+model_temp5b <- lm(INCWAGE ~ AGE + educ_advdeg)
+  > summary(model_temp5b)
+Call:
+  lm(formula = INCWAGE ~ AGE + educ_advdeg)
+
+Residuals:
+  Min     1Q Median     3Q    Max 
+-82795 -26319 -18617  12048 622184 
+
+Coefficients:
+  Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 37987.958    452.324   83.98   <2e-16 ***
+  AGE          -233.385      8.636  -27.03   <2e-16 ***
+  educ_advdeg 49474.934    479.236  103.24   <2e-16 ***
+  ---
+  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 63500 on 143763 degrees of freedom
+(29316 observations deleted due to missingness)
+Multiple R-squared:  0.07159,	Adjusted R-squared:  0.07157 
+F-statistic:  5543 on 2 and 143763 DF,  p-value: < 2.2e-16
+
+> suppressMessages(require(stargazer))
+> stargazer(model_temp5b, type = "text")
+
+=================================================
+  Dependent variable:     
+  -----------------------------
+  INCWAGE           
+-------------------------------------------------
+  AGE                          -233.385***         
+  (8.636)           
+
+educ_advdeg                 49,474.930***        
+  (479.236)          
+
+Constant                    37,987.960***        
+  (452.324)          
+
+-------------------------------------------------
+  Observations                   143,766           
+R2                              0.072            
+Adjusted R2                     0.072            
+Residual Std. Error   63,497.830 (df = 143763)   
+F Statistic         5,542.619*** (df = 2; 143763)
+=================================================
+  Note:                 *p<0.1; **p<0.05; ***p<0.01
+
+To compare the coefficents:
+Coefficients:
+  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        42941.682    454.885   94.40   <2e-16 ***
+  AGE                 -256.578      8.543  -30.03   <2e-16 ***
+  educ_advdeg        46887.095    475.637   98.58   <2e-16 ***
+  below_povertyline -31079.949    529.226  -58.73   <2e-16 ***
+  
+Coefficients:
+  Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 37987.958    452.324   83.98   <2e-16 ***
+  AGE          -233.385      8.636  -27.03   <2e-16 ***
+  educ_advdeg 49474.934    479.236  103.24   <2e-16 ***
+  
+  
+To conclude the entire study once more, correlation does not equate to causation and we cannot claim that any one variable increases or decreases income. 
+However, there are certain variables that can aid in increasing or decreasing an individual's' income, such as highest level of education attained, number of years since working, etc. 
